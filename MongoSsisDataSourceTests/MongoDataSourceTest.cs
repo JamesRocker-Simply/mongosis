@@ -324,58 +324,6 @@ namespace MongoSourceTests
             Mock.Assert(expected);
         }
 
-        /// <summary>
-        ///A test for AddCustomProperties
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("MongoSsisDataSource.dll")]
-        public void AddCustomPropertiesTest()
-        {
-            PrivateObject p = new PrivateObject(typeof(MongoDataSource.MongoDataSource));
-
-            IDTSCustomPropertyCollection100 customPropertyCollection = Mock.Create<IDTSCustomPropertyCollection100>();
-
-            IDTSCustomProperty100 collectionNameProp = Mock.Create<IDTSCustomProperty100>();
-            IDTSCustomProperty100 conditionalFieldProp = Mock.Create<IDTSCustomProperty100>();
-            IDTSCustomProperty100 fromValueProp = Mock.Create<IDTSCustomProperty100>();
-            IDTSCustomProperty100 toValueProp = Mock.Create<IDTSCustomProperty100>();
-            IDTSCustomProperty100 queryProp = Mock.Create<IDTSCustomProperty100>();
-            IDTSCustomProperty100 sampleSizeProp = Mock.Create<IDTSCustomProperty100>();
-            IDTSCustomProperty100 sampleOffsetProp = Mock.Create<IDTSCustomProperty100>();
-
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(collectionNameProp).InSequence();
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(conditionalFieldProp).InSequence();
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(fromValueProp).InSequence();
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(toValueProp).InSequence();
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(queryProp).InSequence();
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(sampleSizeProp).InSequence();
-            Mock.Arrange(() => customPropertyCollection.New()).Returns(sampleOffsetProp).InSequence();
-
-            System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic;
-
-            assertSetPropertyNameAndDescription(collectionNameProp, (string)p.GetField("COLLECTION_NAME_PROP_NAME", flags));
-            Mock.ArrangeSet(() => collectionNameProp.UITypeEditor = Arg.Matches<string>(x => x == typeof(CollectionNameEditor).AssemblyQualifiedName));
-
-            assertSetPropertyNameAndDescription(conditionalFieldProp, (string)p.GetField("CONDITIONAL_FIELD_PROP_NAME", flags));
-            assertSetPropertyNameAndDescription(fromValueProp, (string)p.GetField("CONDITION_FROM_PROP_NAME", flags));
-            assertSetPropertyNameAndDescription(toValueProp, (string)p.GetField("CONDITION_TO_PROP_NAME", flags));
-            assertSetPropertyNameAndDescription(queryProp, (string)p.GetField("CONDITION_DOC_PROP_NAME", flags));
-            assertSetPropertyNameAndDescription(sampleSizeProp, (string)p.GetField("SAMPLE_SIZE_PROP_NAME", flags));
-            assertSetPropertyNameAndDescription(sampleOffsetProp, (string)p.GetField("SAMPLE_OFFSET_PROP_NAME", flags));
-
-            p.Invoke("AddCustomProperties", new object[] { customPropertyCollection });
-
-            Mock.Assert(() => customPropertyCollection.New(), Occurs.Exactly(7));
-
-            Mock.Assert(collectionNameProp);
-            Mock.Assert(conditionalFieldProp);
-            Mock.Assert(fromValueProp);
-            Mock.Assert(toValueProp);
-            Mock.Assert(queryProp);
-            Mock.Assert(sampleSizeProp);
-            Mock.Assert(sampleOffsetProp);
-        }
-
         private void assertSetPropertyNameAndDescription(IDTSCustomProperty100 propMock, String propName)
         {
             Mock.ArrangeSet(() => propMock.Description = Arg.IsAny<String>()).OccursOnce();
