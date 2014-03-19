@@ -330,6 +330,7 @@ namespace MongoDataSource
             customProperty.Description = description;
             customProperty.Name = name;
             customProperty.Value = defaultValue;
+            customProperty.ExpressionType = DTSCustomPropertyExpressionType.CPET_NOTIFY;
 
             return customProperty;
         }
