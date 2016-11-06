@@ -19,9 +19,17 @@ MongoDataSourceTests/mongodatasource.snk
 *.[Cc]ache
 *.bak
 *.ncb
-*.log 
+*.log
 *.DS_Store
-[Tt]humbs.db 
+[Tt]humbs.db
 _ReSharper.*
 *.resharper
 Ankh.NoLoad
+# Ignore NuGet Packages
+.nupkg
+# Ignore the packages folder
+/packages/
+# except build/, which is used as an MSBuild target.
+!/packages/build/
+# Uncomment if necessary; generally it will be regenerated when needed
+#!**/packages/repositories.config</p>
