@@ -398,7 +398,7 @@ namespace MongoSourceTests
             PrivateObject p = new PrivateObject(typeof(MongoDataSource.MongoDataSource));
             String value = "12/12/2012";
             object parsedValue = p.Invoke("ParseConditionValue", new object[] { value, DataType.DT_DATE });
-            Assert.AreEqual(DateTime.Parse(value).ToUniversalTime().ToLongDateString(), ((BsonDateTime)parsedValue).AsDateTime.ToLongDateString());
+            Assert.AreEqual(DateTime.Parse(value).ToUniversalTime().ToLongDateString(), ((BsonDateTime)parsedValue).ToUniversalTime().ToLongDateString());
         }
 
         /// <summary>
@@ -414,7 +414,7 @@ namespace MongoSourceTests
 
             Assert.IsTrue(parsedValue is BsonDateTime);
 
-            Assert.AreEqual(DateTime.Now.ToLongDateString(), ((BsonDateTime)parsedValue).AsDateTime.ToLongDateString());
+            Assert.AreEqual(DateTime.Now.ToLongDateString(), ((BsonDateTime)parsedValue).ToUniversalTime().ToLongDateString());
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace MongoSourceTests
 
             object parsedValue = p.Invoke("ParseConditionValue", new object[] { "today", DataType.DT_DATE });
 
-            Assert.AreEqual(DateTime.Now.ToLongDateString(), ((BsonDateTime)parsedValue).AsDateTime.ToLongDateString());
+            Assert.AreEqual(DateTime.Now.ToLongDateString(), ((BsonDateTime)parsedValue).ToUniversalTime().ToLongDateString());
         }
 
         /// <summary>
@@ -441,7 +441,7 @@ namespace MongoSourceTests
 
             object parsedValue = p.Invoke("ParseConditionValue", new object[] { "yesterday", DataType.DT_DATE });
 
-            Assert.AreEqual(DateTime.Now.AddDays(-1).ToLongDateString(), ((BsonDateTime)parsedValue).AsDateTime.ToLongDateString());
+            Assert.AreEqual(DateTime.Now.AddDays(-1).ToLongDateString(), ((BsonDateTime)parsedValue).ToUniversalTime().ToLongDateString());
         }
 
         /// <summary>
@@ -454,11 +454,11 @@ namespace MongoSourceTests
 
             object parsedValue = p.Invoke("ParseConditionValue", new object[] { "-2", DataType.DT_DATE });
 
-            Assert.AreEqual(DateTime.Now.AddDays(-2).ToLongDateString(), ((BsonDateTime)parsedValue).AsDateTime.ToLongDateString());
+            Assert.AreEqual(DateTime.Now.AddDays(-2).ToLongDateString(), ((BsonDateTime)parsedValue).ToUniversalTime().ToLongDateString());
 
             parsedValue = p.Invoke("ParseConditionValue", new object[] { "-4", DataType.DT_DATE });
 
-            Assert.AreEqual(DateTime.Now.AddDays(-4).ToLongDateString(), ((BsonDateTime)parsedValue).AsDateTime.ToLongDateString());
+            Assert.AreEqual(DateTime.Now.AddDays(-4).ToLongDateString(), ((BsonDateTime)parsedValue).ToUniversalTime().ToLongDateString());
         }
 
         /// <summary>

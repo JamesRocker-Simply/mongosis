@@ -344,7 +344,7 @@ namespace MongoDataSource
                             object elem = null;
                             if (col.DocNames.Length > i + 1)
                                 elem = new Dictionary<string, object>();
-                            parent.Add(new Dictionary<string, object> { { col.DocNames[i], elem } });
+                            parent.AddRange(new Dictionary<string, object> { { col.DocNames[i], elem } });
                         }
                         prevName = col.DocNames[i];
                     }
